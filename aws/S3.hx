@@ -1,13 +1,14 @@
 package aws;
 
-// TODO (DK) figure out how to create this stuff from *.d.ts files, ts2hx explodes
-
-typedef AWSError = {}
+typedef AWSError = aws.error.AWSError;
 
 typedef Body = Dynamic; // export type Body = Buffer|Uint8Array|Blob|string|Readable;
 typedef BucketName = String;
 typedef GrantRead = String;
 typedef ObjectKey = String;
+typedef ETag = String;
+
+typedef IfMatch = String;
 
 @:enum abstract ObjectCannedACL(String) to String {
 	var Private = 'private';
@@ -34,12 +35,16 @@ typedef PutObjectRequest = {
 typedef PutObjectOutput = {}
 
 typedef GetObjectRequest = {
+    Bucket: BucketName,
+	Key: ObjectKey,
+
+	?IfMatch: IfMatch,
+
 	// ... TODO (DK) remaining fields
 }
 
 typedef GetObjectOutput = {
-    Bucket: BucketName,
-	Key: ObjectKey,
+	ETag: ETag,
 	// ... TODO (DK) remaining fields
 }
 
